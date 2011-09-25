@@ -1,12 +1,18 @@
 #!/bin/sh
 
-pwd
-git log -1 --pretty=oneline HEAD
-
+REPOSITORY=`git config --get remote.origin.url`
+COMMIT_INFO=`git log -1 --pretty=oneline HEAD`
 FILE_NAME='/tmp/'`date "+%s"`.jpg
-imagesnap ${FILE_NAME} > /dev/null
-curl -silent -o /dev/null http://localhost:3000/upload -F picture=@${FILE_NAME}
 
+echo ${REPOSITORY}
+echo ${COMMIT_INFO}
 echo ${FILE_NAME}
 
-#rm ${FILE_NAME}
+cd ${HOME}/.commithub/scratch
+pwd
+
+imagesnap ${FILE_NAME} > /dev/null
+curl -silent -o /dev/null http://localhost:3000/upload -F "picture=@${FILE_NAME};commit=${COMMIT_INFO};repo=${REPOSITORY}"
+
+echo ${FILE_NAME}
+rm ${FILE_NAME}
