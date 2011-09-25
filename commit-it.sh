@@ -2,7 +2,7 @@
 
 REPOSITORY=`git config --get remote.origin.url`
 COMMIT_INFO=`git log -1 --pretty=oneline HEAD`
-FILE_NAME='/tmp/'`date "+%s"`.jpg
+FILE_NAME="${HOME}/.commithub/scratch/"`date "+%s"`".jpg"
 
 echo ${REPOSITORY}
 echo ${COMMIT_INFO}
