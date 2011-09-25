@@ -5,20 +5,16 @@
 
 ## How to Install
 
-  $ git clone git://github.com/atsuya/commithub-client.git ~/.commithub
+    $ git clone git://github.com/atsuya/commithub-client.git ~/.commithub
 
-That will install commithub client under your home directory.
-
-Then, add `~/.commithub/bin` to your `$PATH`. Or create a symlink to
-`~/.commithub/bin/commithub` in somewhere you already have `$PATH` setup for.
-I have `~/bin` in `$PATH` so I created a symlink under `~/bin`.
+That will install commithub client under your home directory. Then, add `~/.commithub/bin` to your `$PATH`. Or create a symlink to `~/.commithub/bin/commithub` in somewhere you already have `$PATH` setup for. I have `~/bin` in `$PATH` so I created a symlink under `~/bin`.
 
 
 ## How to Use
 
 Go to any git repository and run following command:
 
-  $ commithub install
+    $ commithub install
 
 That will install git hooks that will make committing much more fun!
 
@@ -31,7 +27,7 @@ data will be sent to.
 
 ## Team
 
-Ryan Moran, Atsuya Takagi [https://github.com/atsuya](https://github.com/atsuya), Peter Tran
+Ryan Moran, Atsuya Takagi ([https://github.com/atsuya](https://github.com/atsuya)), Peter Tran
 
 
 ## License
