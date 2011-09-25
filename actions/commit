@@ -1,11 +1,29 @@
 #!/bin/bash
 
 URL=`cat ${COMMITHUB_HOME}/config`
-REPOSITORY=`git config --get remote.origin.url`
-COMMIT_INFO=`git log -1 --pretty=oneline HEAD`
 FILE_NAME=`date "+%s"`".jpg"
+
+# TODO there has to be a better way to construct
+REMOTE_ORIGIN_URL=`git config --get remote.origin.url`
+COMMIT_HASH=`git log -1 --pretty=format:"%H" HEAD`
+AUTHOR_NAME=`git log -1 --pretty=format:"%an" HEAD`
+AUTHOR_EMAIL=`git log -1 --pretty=format:"%ae" HEAD`
+AUTHOR_DATE=`git log -1 --pretty=format:"%ai" HEAD`
+COMMITTER_NAME=`git log -1 --pretty=format:"%cn" HEAD`
+COMMITTER_EMAIL=`git log -1 --pretty=format:"%ce" HEAD`
+COMMITTER_DATE=`git log -1 --pretty=format:"%ci" HEAD`
+
+FORM_DATA="picture=@${FILE_NAME}"
+FORM_DATA=${FORM_DATA}";remote_origin_url=${REMOTE_ORIGIN_URL}"
+FORM_DATA=${FORM_DATA}";commit_hash=${COMMIT_HASH}"
+FORM_DATA=${FORM_DATA}";author_name=${AUTHOR_NAME}"
+FORM_DATA=${FORM_DATA}";author_email=${AUTHOR_EMAIL}"
+FORM_DATA=${FORM_DATA}";author_date=${AUTHOR_DATE}"
+FORM_DATA=${FORM_DATA}";committer_name=${COMMITTER_NAME}"
+FORM_DATA=${FORM_DATA}";committer_email=${COMMITTER_EMAIL}"
+FORM_DATA=${FORM_DATA}";committer_date=${COMMITTER_DATE}"
 
 cd ${COMMITHUB_HOME}/scratch
 imagesnap ${FILE_NAME} > /dev/null
-curl -silent -o /dev/null ${URL} -F "picture=@${FILE_NAME};commit=${COMMIT_INFO};repo=${REPOSITORY}"
+curl -silent -o /dev/null ${URL} -F "${FORM_DATA}"
 rm ${FILE_NAME}
