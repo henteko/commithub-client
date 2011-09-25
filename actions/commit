@@ -1,6 +1,4 @@
-#!/bin/sh
-
-COMMITHUB_HOME=${HOME}/.commithub
+#!/bin/bash
 
 URL=`cat ${COMMITHUB_HOME}/config`
 REPOSITORY=`git config --get remote.origin.url`

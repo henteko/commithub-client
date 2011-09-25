@@ -1,0 +1,14 @@
+#!/bin/bash
+
+COMMITHUB_HOME=${HOME}/.commithub
+#COMMITHUB_HOME=./
+
+ACTION_FILE=${COMMITHUB_HOME}/actions/${1}
+
+if [ -f ${ACTION_FILE} ]; then
+  # args passed to commithub command will be passed to action.
+  # it also sets COMMITHUB_HOME so actions can use it to refer commithub home.
+  COMMITHUB_HOME=${COMMITHUB_HOME} ${ACTION_FILE} $@
+else
+  echo "no such action found."
+fi

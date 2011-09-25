@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SOURCE_FILE=${COMMITHUB_HOME}/hooks/post-commit
+DESTINATION_FILE="./.git/hooks/post-commit"
+BACKUP_FILE_EXTENSION="commithub.backup"
+
+if [ -f ${DESTINATION_FILE} ]; then
+  # make a backup
+  mv ${DESTINATION_FILE} ${DESTINATION_FILE}"."${BACKUP_FILE_EXTENSION}
+  echo "${DESTINATION_FILE} existed so made a backup."
+fi
+
+# double check...
+if [ ! -f ${DESTINATION_FILE} ]; then
+  cp ${SOURCE_FILE} ${DESTINATION_FILE}
+  echo "Done!"
+else
+  echo "${SOURCE_FILE} still exists... aborting."
+fi

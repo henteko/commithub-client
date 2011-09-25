@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# under any circumstance, removing file is a serious matter.
+# there might be a better way to do this after all.
+
+BACKUP_FILE_EXTENSION="commithub.backup"
+SOURCE_FILE="./.git/hooks/post-commit."${BACKUP_FILE_EXTENSION}
+DESTINATION_FILE="./.git/hooks/post-commit"
+
+if [ -f ${SOURCE_FILE} ]; then
+  if [ -f ${DESTINATION_FILE} ]; then
+    rm ${DESTINATION_FILE}
+  fi
+  mv ${SOURCE_FILE} ${DESTINATION_FILE}
+fi
