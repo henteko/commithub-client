@@ -25,5 +25,6 @@ FORM_DATA=${FORM_DATA}";committer_date=${COMMITTER_DATE}"
 
 cd ${COMMITHUB_HOME}/scratch
 imagesnap ${FILE_NAME} > /dev/null
-curl -silent -o /dev/null ${URL} -F "${FORM_DATA}"
+#curl -silent -o /dev/null ${URL} -F "${FORM_DATA}"
+curl ${URL} -F "${FORM_DATA}"
 rm ${FILE_NAME}
