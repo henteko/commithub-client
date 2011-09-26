@@ -12,6 +12,8 @@ AUTHOR_DATE=`git log -1 --pretty=format:"%ai" ${COMMIT_HASH}`
 COMMITTER_NAME=`git log -1 --pretty=format:"%cn" ${COMMIT_HASH}`
 COMMITTER_EMAIL=`git log -1 --pretty=format:"%ce" ${COMMIT_HASH}`
 COMMITTER_DATE=`git log -1 --pretty=format:"%ci" ${COMMIT_HASH}`
+SUBJECT=`git log -1 --pretty=format:"%s" ${COMMIT_HASH}`
+BODY=`git log -1 --pretty=format:"%b" ${COMMIT_HASH}`
 
 # i don't know why but i couldn't get this working...
 #FORM_DATA="-F picture=@${FILE_NAME}"
@@ -26,5 +28,5 @@ COMMITTER_DATE=`git log -1 --pretty=format:"%ci" ${COMMIT_HASH}`
 
 cd ${COMMITHUB_HOME}/scratch
 imagesnap ${FILE_NAME} > /dev/null
-curl ${URL} -F picture=@${FILE_NAME} -F remote_origin_url="${REMOTE_ORIGIN_URL}" -F commit_hash="${COMMIT_HASH}" -F author_name="${AUTHOR_NAME}" -F author_email="${AUTHOR_EMAIL}" -F author_date="${AUTHOR_DATE}" -F committer_name="${COMMITTER_NAME}" -F committer_email="${COMMITTER_EMAIL}" -F committer_date="${COMMITTER_DATE}"
+curl ${URL} -F picture=@${FILE_NAME} -F remote_origin_url="${REMOTE_ORIGIN_URL}" -F commit_hash="${COMMIT_HASH}" -F author_name="${AUTHOR_NAME}" -F author_email="${AUTHOR_EMAIL}" -F author_date="${AUTHOR_DATE}" -F committer_name="${COMMITTER_NAME}" -F committer_email="${COMMITTER_EMAIL}" -F committer_date="${COMMITTER_DATE}" -F subject="${SUBJECT}" -F body="${BODY}"
 rm ${FILE_NAME}
