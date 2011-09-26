@@ -3,28 +3,28 @@
 URL=`cat ${COMMITHUB_HOME}/config`
 FILE_NAME=`date "+%s"`".jpg"
 
-# TODO there has to be a better way to construct
+# TODO there has to be a better way to do this
 REMOTE_ORIGIN_URL=`git config --get remote.origin.url`
 COMMIT_HASH=`git log -1 --pretty=format:"%H" HEAD`
-AUTHOR_NAME=`git log -1 --pretty=format:"%an" HEAD`
-AUTHOR_EMAIL=`git log -1 --pretty=format:"%ae" HEAD`
-AUTHOR_DATE=`git log -1 --pretty=format:"%ai" HEAD`
-COMMITTER_NAME=`git log -1 --pretty=format:"%cn" HEAD`
-COMMITTER_EMAIL=`git log -1 --pretty=format:"%ce" HEAD`
-COMMITTER_DATE=`git log -1 --pretty=format:"%ci" HEAD`
+AUTHOR_NAME=`git log -1 --pretty=format:"%an" ${COMMIT_HASH}`
+AUTHOR_EMAIL=`git log -1 --pretty=format:"%ae" ${COMMIT_HASH}`
+AUTHOR_DATE=`git log -1 --pretty=format:"%ai" ${COMMIT_HASH}`
+COMMITTER_NAME=`git log -1 --pretty=format:"%cn" ${COMMIT_HASH}`
+COMMITTER_EMAIL=`git log -1 --pretty=format:"%ce" ${COMMIT_HASH}`
+COMMITTER_DATE=`git log -1 --pretty=format:"%ci" ${COMMIT_HASH}`
 
-FORM_DATA="picture=@${FILE_NAME}"
-FORM_DATA=${FORM_DATA}";remote_origin_url=${REMOTE_ORIGIN_URL}"
-FORM_DATA=${FORM_DATA}";commit_hash=${COMMIT_HASH}"
-FORM_DATA=${FORM_DATA}";author_name=${AUTHOR_NAME}"
-FORM_DATA=${FORM_DATA}";author_email=${AUTHOR_EMAIL}"
-FORM_DATA=${FORM_DATA}";author_date=${AUTHOR_DATE}"
-FORM_DATA=${FORM_DATA}";committer_name=${COMMITTER_NAME}"
-FORM_DATA=${FORM_DATA}";committer_email=${COMMITTER_EMAIL}"
-FORM_DATA=${FORM_DATA}";committer_date=${COMMITTER_DATE}"
+# i don't know why but i couldn't get this working...
+#FORM_DATA="-F picture=@${FILE_NAME}"
+#FORM_DATA=${FORM_DATA}" -F remote_origin_url=${REMOTE_ORIGIN_URL}"
+#FORM_DATA=${FORM_DATA}" -F commit_hash=${COMMIT_HASH}"
+#FORM_DATA=${FORM_DATA}" -F author_name='${AUTHOR_NAME}'"
+#FORM_DATA=${FORM_DATA}" -F author_email='${AUTHOR_EMAIL}'"
+#FORM_DATA=${FORM_DATA}" -F author_date='${AUTHOR_DATE}'"
+#FORM_DATA=${FORM_DATA}" -F committer_name='${COMMITTER_NAME}'"
+#FORM_DATA=${FORM_DATA}" -F committer_email='${COMMITTER_EMAIL}'"
+#FORM_DATA=${FORM_DATA}" -F committer_date='${COMMITTER_DATE}'"
 
 cd ${COMMITHUB_HOME}/scratch
 imagesnap ${FILE_NAME} > /dev/null
-#curl -silent -o /dev/null ${URL} -F "${FORM_DATA}"
-curl ${URL} -F "${FORM_DATA}"
+curl ${URL} -F picture=@${FILE_NAME} -F remote_origin_url="${REMOTE_ORIGIN_URL}" -F commit_hash="${COMMIT_HASH}" -F author_name="${AUTHOR_NAME}" -F author_email="${AUTHOR_EMAIL}" -F author_date="${AUTHOR_DATE}" -F committer_name="${COMMITTER_NAME}" -F committer_email="${COMMITTER_EMAIL}" -F committer_date="${COMMITTER_DATE}"
 rm ${FILE_NAME}
