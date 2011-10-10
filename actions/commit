@@ -28,5 +28,5 @@ BODY=`git log -1 --pretty=format:"%b" ${COMMIT_HASH}`
 
 cd ${COMMITHUB_HOME}/scratch
 imagesnap ${FILE_NAME} > /dev/null
-curl ${URL} -F picture=@${FILE_NAME} -F remote_origin_url="${REMOTE_ORIGIN_URL}" -F commit_hash="${COMMIT_HASH}" -F author_name="${AUTHOR_NAME}" -F author_email="${AUTHOR_EMAIL}" -F author_date="${AUTHOR_DATE}" -F committer_name="${COMMITTER_NAME}" -F committer_email="${COMMITTER_EMAIL}" -F committer_date="${COMMITTER_DATE}" -F subject="${SUBJECT}" -F body="${BODY}"
+curl -silent -o /dev/null ${URL} -F picture=@${FILE_NAME} -F remote_origin_url="${REMOTE_ORIGIN_URL}" -F commit_hash="${COMMIT_HASH}" -F author_name="${AUTHOR_NAME}" -F author_email="${AUTHOR_EMAIL}" -F author_date="${AUTHOR_DATE}" -F committer_name="${COMMITTER_NAME}" -F committer_email="${COMMITTER_EMAIL}" -F committer_date="${COMMITTER_DATE}" -F subject="${SUBJECT}" -F body="${BODY}"
 rm ${FILE_NAME}
